@@ -1,4 +1,4 @@
-# PHP-Date-bypass-Y2K38-bug
+# PHP Date function to bypass Y2K38 bug
 This class is for bypass the 32-bit PHP Y2K38 bug
 	
 	Changelog	:
