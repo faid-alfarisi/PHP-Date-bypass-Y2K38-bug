@@ -8,9 +8,9 @@ This class
 * PHP >= 5.4
 	
 ### Changelog
-* 1.0 (16 Dec 2016)
+* **1.0 (16 Dec 2016):**
 	- Initial release
-* 1.1 (18 Dec 2016)
+* **1.1 (18 Dec 2016):**
 	- Added "F" for a full textual representation of a month (January through December)
 	- Added "M" for a short textual representation of a month, three letters (Jan through Dec)
 	- Added "z" for the day of the year (starting from 0)
