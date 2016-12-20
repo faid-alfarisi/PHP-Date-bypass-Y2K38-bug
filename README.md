@@ -48,40 +48,40 @@ $my_date = $date->format("Y-m-d H:i:s", $my_timestamp);	// Create date from time
 ```
 	
 ### timestamp() function only support these input formats
-Separator 1 | Separator 2 | Separator 3
---- | --- | ---
-`Y-m-d H:i:s` | `Y/m/d H:i:s` | `Y.m.d H:i:s`
-`d-m-Y H:i:s` | `d/m/Y H:i:s` | `d.m.Y H:i:s`
-`Y-m-d` | `Y/m/d` | `Y.m.d`
-`d-m-Y` | `d/m/Y` | `d.m.Y`
+| Separator 1   | Separator 2   | Separator 3   |
+| ------------- | ------------- | ------------- |
+| `Y-m-d H:i:s` | `Y/m/d H:i:s` | `Y.m.d H:i:s` |
+| `d-m-Y H:i:s` | `d/m/Y H:i:s` | `d.m.Y H:i:s` |
+| `Y-m-d`       | `Y/m/d`       | `Y.m.d`       |
+| `d-m-Y`       | `d/m/Y`       | `d.m.Y`       |
 
 > **Note:** to add/change the format ability go to line timestamp() function on line 491
 	
 ### format() function only support these output formats
-Code | Output
---- | ---
-`Y` | A full numeric representation of a year, 4 digits
-`y` | A two digit representation of a year
-`m` | Numeric representation of a month, with leading zeros
-`n` | Numeric representation of a month, without leading zeros
-`F` | A full textual representation of a month (January through December)
-`M` | A short textual representation of a month, three letters (Jan through Dec)
-`d` | Day of the month, 2 digits with leading zeros
-`l` | A full textual representation of the day of the week (Monday through Sunday)
-`D` | A textual representation of a day, three letters (Mon through Sun)
-`w` | Numeric representation of the day of the week (0 for Sunday through 6 for Saturday)
-`N` | ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday)
-`z` | The day of the year (starting from 0 to 365/366)
-`S` | English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)
-`W` | ISO-8601 week number of year
-`j` | Day of the month without leading zeros
-`h` | 12-hour format of an hour with leading zeros
-`H` | 24-hour format of an hour with leading zeros
-`G` | 24-hour format of an hour without leading zeros
-`g` | 12-hour format of an hour without leading zeros
-`i` | Minutes with leading zeros
-`s` | Seconds, with leading zeros
-`A` | Uppercase Ante meridiem and Post meridiem
-`a` | Lowercase Ante meridiem and Post meridiem
+| Code | Output                                                                                     |
+|:----:| -------------------------------------------------------------------------------------------|
+|`Y`   | A full numeric representation of a year, 4 digits                                          |
+|`y`   | A two digit representation of a year                                                       |
+|`m`   | Numeric representation of a month, with leading zeros                                      |
+|`n`   | Numeric representation of a month, without leading zeros                                   |
+|`F`   | A full textual representation of a month (January through December)                        |
+|`M`   | A short textual representation of a month, three letters (Jan through Dec)                 |
+|`d`   | Day of the month, 2 digits with leading zeros                                              |
+|`l`   | A full textual representation of the day of the week (Monday through Sunday)               |
+|`D`   | A textual representation of a day, three letters (Mon through Sun)                         |
+|`w`   | Numeric representation of the day of the week (0 for Sunday through 6 for Saturday)        |
+|`N`   | ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday) |
+|`z`   | The day of the year (starting from 0 to 365/366)                                           |
+|`S`   | English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)           |
+|`W`   | ISO-8601 week number of year                                                               |
+|`j`   | Day of the month without leading zeros                                                     |
+|`h`   | 12-hour format of an hour with leading zeros
+|`H`   | 24-hour format of an hour with leading zeros
+|`G`   | 24-hour format of an hour without leading zeros
+|`g`   | 12-hour format of an hour without leading zeros
+|`i`   | Minutes with leading zeros
+|`s`   | Seconds, with leading zeros
+|`A`   | Uppercase Ante meridiem and Post meridiem
+|`a`   | Lowercase Ante meridiem and Post meridiem
 
 > **Note:** to add/change the format ability go to line format() function on line 246
