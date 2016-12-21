@@ -31,7 +31,7 @@ $your_variable = new PHPdate($GMT);		// Set your timezone
 
 > **Note:** $GMT means GMT hours in your country, your timezone. Example: Asia/Jakarta is GMT +7
 
-#### Example:
+### Example:
 ```php
 $date0 = new PHPdate();					// The default is your PHP default timezone
 $date1 = new PHPdate(0);				// GMT/UTC
@@ -55,7 +55,7 @@ $my_date = $date->format("Y-m-d H:i:s", $my_timestamp);	// Create date from time
 | `Y-m-d`       | `Y/m/d`       | `Y.m.d`       |
 | `d-m-Y`       | `d/m/Y`       | `d.m.Y`       |
 
-> **Note:** to add/change the format ability go to line timestamp() function on line 491
+> **Note:** to add/change the format ability go to `timestamp()` function on line 491
 	
 ### format() function only support these output formats
 | Code | Output                                                                                     |
@@ -84,4 +84,4 @@ $my_date = $date->format("Y-m-d H:i:s", $my_timestamp);	// Create date from time
 |`A`   | Uppercase Ante meridiem and Post meridiem
 |`a`   | Lowercase Ante meridiem and Post meridiem
 
-> **Note:** to add/change the format ability go to line format() function on line 246
+> **Note:** to add/change the format ability go to `format()` function on line 246
