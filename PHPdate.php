@@ -18,6 +18,11 @@
 			- Added "w" for numeric representation of the day of the week (0 for Sunday through 6 for Saturday)
 			- Added "S" for english ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)
 			- Added "N" for ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday)
+		1.2 [2016-02-26]
+		----------------
+			- Removed W (ISO-8601 week number of year) due to instability
+			- Fix incorrect day name
+			- Fix examples
 	
 	Usage:
 	------
@@ -64,8 +69,8 @@
 		w => Numeric representation of the day of the week (0 for Sunday through 6 for Saturday)
 		N => ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday)
 		z => The day of the year (starting from 0 to 365/366)
+		Z => Timezone offset in seconds (-43200 through 50400)
 		S => English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)
-		W => ISO-8601 week number of year
 		j => Day of the month without leading zeros
 		h => 12-hour format of an hour with leading zeros
 		H => 24-hour format of an hour with leading zeros
@@ -251,9 +256,8 @@ class PHPdate {
 			$timestamp = floatval($timestamp * -1);
 			$minus = true;
 		}
-		$timestamp = floatval($timestamp + ($this->GMT * 3600));
-		
-		$day_name = $minus ? 3 : 4;		// January, 1st 1970 is Thursday and December, 31st 1969 is Wednesday
+		$timestamp = floatval($timestamp + ($this->GMT * 3600));	// Adjust timestamp with your timezone
+		$day_name = $minus ? 3 : 4;									// December, 31st 1969 is Wednesday and January, 1st 1970 is Thursday
 		
 		// --- YEAR --- //
 		$add = 31536000;
@@ -262,13 +266,13 @@ class PHPdate {
 		while($timestamp >= ($tmp + $add)) {
 			$tmp += $add;
 			if($minus) {
-				$y--;
-				$day_name -= $this->isLeap($y + 1) ? 2 : 1;
+				$day_name -= $this->isLeap($y) ? 2 : 1;
 				$day_name = $day_name < 0 ? $day_name + 7 : $day_name;
+				$y--;
 			} else {
-				$y++;
-				$day_name += $this->isLeap($y - 1) ? 2 : 1;
+				$day_name += $this->isLeap($y) ? 2 : 1;
 				$day_name = $day_name > 6 ? $day_name - 7 : $day_name;
+				$y++;
 			}
 			$add = $this->isLeap($y) ? 31622400 : 31536000;
 		}
@@ -276,14 +280,15 @@ class PHPdate {
 		
 		$timestamp -= $tmp;
 		if($minus && $timestamp <= 0) {
+			$day_name++;
+			$day_name = $day_name > 6 ? 0 : $day_name;
 			$y++;
 			$timstamp = 0;
 			$minus = false;
 		}
 		
-		$w = $minus ? 52 : 0;					// Week
-		$doy = $this->isLeap($y) ? 365 : 364;	// Day of year Initiaize
-		$doy = $minus ? $doy : 0;				// Day of year
+		$doy = $this->isLeap($y) ? 365 : 364;									// Day of year Initiaize
+		$doy = $minus ? $doy : 0;												// Day of year (check if year below 1970)
 		
 		// --- MONTH --- //
 		$add = 2678400;
@@ -291,12 +296,19 @@ class PHPdate {
 		$tmp = 0;
 		while($timestamp >= ($tmp + $add)) {
 			$tmp += $add;
+			if($m == 2) {
+				if($this->isLeap($y)) {
+					$day_add = 29;
+				} else {
+					$day_add = 28;
+				}
+			} else {
+				$day_add = $this->DOM[($m - 1)];
+			}
 			if($minus) {
 				$m--;
-				$w -= 4;
 			} else {
 				$m++;
-				$w += 4;
 			}
 			if($m == 2) {
 				if($this->isLeap($y)) {
@@ -308,12 +320,12 @@ class PHPdate {
 				$add = $this->DOM[($m - 1)] * 86400;
 			}
 			if($minus) {
-				$doy -= $add / 86400;
-				$day_name -= ($add / 86400) - 28;
+				$doy -= $day_add;
+				$day_name -= $day_add - 28;
 				$day_name = $day_name < 0 ? $day_name + 7 : $day_name;
 			} else {
-				$doy += $add / 86400;
-				$day_name += ($add / 86400) - 28;
+				$doy += $day_add;
+				$day_name += $day_add - 28;
 				$day_name = $day_name > 6 ? $day_name - 7 : $day_name;
 			}
 		}
@@ -322,12 +334,14 @@ class PHPdate {
 		$timestamp -= $tmp;
 		if($minus && $timestamp <= 0) {
 			$m++;
+			$day_name++;
+			$day_name = $day_name > 6 ? 0 : $day_name;
 			$timstamp = 0;
 			$minus = false;
 		}
 		
 		// --- DAY --- //
-		if($m === 2) {
+		if($m == 2) {
 			if($this->isLeap($y)) {
 				$day_in_month = 29;
 			} else {
@@ -339,9 +353,7 @@ class PHPdate {
 		$add = 86400;
 		$d = $minus ? $day_in_month : 1;
 		$tmp = 0;
-		$cdw = 0;
 		while($timestamp >= ($tmp + $add)) {
-			$cdw++;
 			$tmp += $add;
 			if($minus) {
 				$d--;
@@ -354,16 +366,15 @@ class PHPdate {
 				$day_name++;
 				$day_name = $day_name > 6 ? 0 : $day_name;
 			}
-			if($cdw == 6) {
-				$cdw = 0;
-				$w++;
-			}
 		}
 		// --- DAY --- //
 		
 		$timestamp -= $tmp;
 		if($minus && $timestamp <= 0) {
 			$d++;
+			$doy++;
+			$day_name++;
+			$day_name = $day_name > 6 ? 0 : $day_name;
 			$timstamp = 0;
 			$minus = false;
 		}
@@ -383,6 +394,11 @@ class PHPdate {
 		// --- HOUR --- //
 		
 		$timestamp -= $tmp;
+		if($minus && $timestamp <= 0) {
+			$h++;
+			$timstamp = 0;
+			$minus = false;
+		}
 		
 		// --- MINUTE --- //
 		$add = 60;
@@ -399,6 +415,11 @@ class PHPdate {
 		// --- MINUTE --- //
 		
 		$timestamp -= $tmp;
+		if($minus && $timestamp <= 0) {
+			$i++;
+			$timstamp = 0;
+			$minus = false;
+		}
 		
 		// --- SECOND --- //
 		$s = $minus ? 60 - $timestamp : $timestamp;
@@ -422,15 +443,15 @@ class PHPdate {
 			"m" => $m,											// Numeric representation of a month, with leading zeros
 			"n" => intval($m),									// Numeric representation of a month, without leading zeros
 			"F" => $this->NOM[(intval($m) - 1)],				// A full textual representation of a month (January through December)
-			"M" => substr($this->NOM[(intval($m) - 1)], 3),		// A short textual representation of a month, three letters (Jan through Dec)
+			"M" => substr($this->NOM[(intval($m) - 1)], 0, 3),	// A short textual representation of a month, three letters (Jan through Dec)
 			"d" => $d,											// Day of the month, 2 digits with leading zeros
 			"l" => $this->NOD[$day_name],						// A full textual representation of the day of the week (Monday through Sunday)
-			"D" => substr($this->NOD[$day_name], 3),			// A textual representation of a day, three letters (Mon through Sun)
+			"D" => substr($this->NOD[$day_name], 0, 3),			// A textual representation of a day, three letters (Mon through Sun)
 			"w" => $day_name,									// Numeric representation of the day of the week (0 for Sunday through 6 for Saturday)
 			"N" => $day_name == 0 ? 7 : $day_name,				// ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday)
 			"z" => $doy,										// The day of the year (starting from 0 to 365/366)
+			"Z" => $this->GMT * 3600,							// Timezone offset in seconds (-43200 through 50400)
 			"S" => $this->getSuffix($d),						// English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)
-			"W" => $w,											// ISO-8601 week number of year
 			"j" => intval($d),									// Day of the month without leading zeros
 			"h" => $h12 < 10 ? "0{$h12}" : $h12,				// 12-hour format of an hour with leading zeros
 			"H" => $h,											// 24-hour format of an hour with leading zeros
@@ -629,4 +650,3 @@ class PHPdate {
 		return floatval(0 - floatval(($y + $m + $d + $h + $i + $s) - ($this->GMT * 3600)));
 	}
 }
-?>

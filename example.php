@@ -40,13 +40,13 @@
 		<td style='width:80px;'>date</td>
 		<td style='width:60px;'>[en-US]</td>
 		<td style='width:14px;'>:</td>
-		<td><?php echo date("l, F NS, Y @ g:i A"); ?></td>
+		<td><?php echo date("l, F jS, Y @ g:i A"); ?></td>
 	</tr>
 	<tr>
 		<td style='width:80px;'>format</td>
 		<td style='width:60px;'>[en-US]</td>
 		<td style='width:14px;'>:</td>
-		<td><?php echo $dt->format("l, F NS, Y @ g:i A"); ?></td>
+		<td><?php echo $dt->format("l, F jS, Y @ g:i A"); ?></td>
 	</tr>
 	<tr>
 		<td colspan='4' style='border:1px solid #000000'></td>
