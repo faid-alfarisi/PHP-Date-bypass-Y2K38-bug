@@ -5,11 +5,13 @@
 	Version		: 1.1 (2016-12-18)
 	
 	Changelog	:
-		1.0
-		---
+		----------------
+		1.0 [2016-12-16]
+		----------------
 			- Initial release
-		1.1
-		---
+		----------------
+		1.1 [2016-12-18]
+		----------------
 			- Added "F" for a full textual representation of a month (January through December)
 			- Added "M" for a short textual representation of a month, three letters (Jan through Dec)
 			- Added "z" for the day of the year (starting from 0)
@@ -18,7 +20,8 @@
 			- Added "w" for numeric representation of the day of the week (0 for Sunday through 6 for Saturday)
 			- Added "S" for english ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)
 			- Added "N" for ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday)
-		1.2 [2016-02-26]
+		----------------
+		1.2 [2017-02-26]
 		----------------
 			- Removed W (ISO-8601 week number of year) due to instability
 			- Fix incorrect day name
