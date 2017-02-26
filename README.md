@@ -22,6 +22,10 @@ If you don't need today date, you can create a date from string then call `times
 	- Added "w" for numeric representation of the day of the week (0 for Sunday through 6 for Saturday)
 	- Added "S" for english ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)
 	- Added "N" for ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday)
+* **1.2 (26 Feb 2016):**
+	- Removed W (ISO-8601 week number of year) due to instability
+	- Fix incorrect day name
+	- Fix examples
 	
 ### Usage
 ```php
