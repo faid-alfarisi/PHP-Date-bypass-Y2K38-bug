@@ -77,15 +77,14 @@ $my_date = $date->format("Y-m-d H:i:s", $my_timestamp);	// Create date from time
 |`N`   | ISO-8601 numeric representation of the day of the week (1 for Monday through 7 for Sunday) |
 |`z`   | The day of the year (starting from 0 to 365/366)                                           |
 |`S`   | English ordinal suffix for the day of the month, 2 characters (st, nd, rd or th)           |
-|`W`   | ISO-8601 week number of year                                                               |
 |`j`   | Day of the month without leading zeros                                                     |
-|`h`   | 12-hour format of an hour with leading zeros
-|`H`   | 24-hour format of an hour with leading zeros
-|`G`   | 24-hour format of an hour without leading zeros
-|`g`   | 12-hour format of an hour without leading zeros
-|`i`   | Minutes with leading zeros
-|`s`   | Seconds, with leading zeros
-|`A`   | Uppercase Ante meridiem and Post meridiem
-|`a`   | Lowercase Ante meridiem and Post meridiem
+|`h`   | 12-hour format of an hour with leading zeros                                               |
+|`H`   | 24-hour format of an hour with leading zeros                                               |
+|`G`   | 24-hour format of an hour without leading zeros                                            |
+|`g`   | 12-hour format of an hour without leading zeros                                            |
+|`i`   | Minutes with leading zeros                                                                 |
+|`s`   | Seconds, with leading zeros                                                                |
+|`A`   | Uppercase Ante meridiem and Post meridiem                                                  |
+|`a`   | Lowercase Ante meridiem and Post meridiem                                                  |
 
 > **Note:** to add/change the format ability go to `format()` function on line 246
