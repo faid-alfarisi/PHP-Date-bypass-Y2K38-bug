@@ -39,16 +39,16 @@ $your_variable = new PHPdate($GMT);		// Set your timezone
 ```php
 $date0 = new PHPdate();					// The default is your PHP default timezone
 $date1 = new PHPdate(0);				// GMT/UTC
-$date2 = new PHPdate("Asia/Jakarta");	// GMT +7 [Asia/Jakarta]
+$date2 = new PHPdate("Asia/Jakarta");			// GMT +7 [Asia/Jakarta]
 $date3 = new PHPdate(-7);				// GMT -7
 ```
 	
 ### Implementation
 ```php
-$date = new PHPdate(0);									// Create Object and date_timezone_set to GMT (+0 hour)
+$date = new PHPdate(0);						// Create Object and date_timezone_set to GMT (+0 hour)
 $my_timestamp = $date->timestamp("2016-12-16");			// Create timestamp of "2016-12-16 00:00:00"
-$today_date = $date->format("Y-m-d H:i:s");				// Get today date and format it to "Y-m-d H:i:s"
-$my_date = $date->format("Y-m-d H:i:s", $my_timestamp);	// Create date from timestamp
+$today_date = $date->format("Y-m-d H:i:s");			// Get today date and format it to "Y-m-d H:i:s"
+$my_date = $date->format("Y-m-d H:i:s", $my_timestamp);		// Create date from timestamp
 ```
 	
 ### timestamp() function only support these input formats
